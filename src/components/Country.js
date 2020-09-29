@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import CountryCard from './../partials/CountryCard'
+import loading from './../images/loading.gif'
 
 const Country = (props) => {
 	
 	const [countries, setCountries] = useState([])
     const [isLoading, setIsLoading]= useState(true);
-	const [searchTerm, setSearchTerm] = React.useState("");
- 	const [searchResults, setSearchResults] = React.useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+ 	const [searchResults, setSearchResults] = useState([]);
 
 	useEffect(() =>{
 		fetch("https://restcountries.eu/rest/v2/all")
@@ -32,47 +33,65 @@ const Country = (props) => {
 	},[searchTerm,countries])
 
 	let countryList = (searchTerm ? searchResults : countries).map(country =>(
-   		<div className="col-12 col-md-4 col-lg-3 mx-auto mt-5" key={country.name}>
-   			{
-   				isLoading ?
-   				<div className="spinner-border" role="status">
-                    <span className="sr-only ">Loading...</span>
-                </div>
-                : 
+   		<div className="col-12 col-md-4 col-lg-3 mx-auto mt-5" key={country.name} >
+  
+   				
    				<CountryCard country={country} />
-   			}
+   			
    		</div>
 	))
 
 
   	return (
-  	
-    <div className="container mt-3">
-    	
-    	<div className="row">
-    		{/*search engine start*/}
-	    	<form className="form-inline col-12 mx-auto">
-			  	<i className="fas fa-search" aria-hidden="true"></i>
-			  	<input 
-			  		className="form-control form-control-sm ml-3 w-100" 
-			  		type="text" 
-			  		placeholder="Search"
-			    	aria-label="Search"
-			    	onChange={handleChange}
-			    	value={searchTerm}
-			    />
-			</form>
-    		{/*search engine end */}
+  	<>
+	  	{
+	  	isLoading ?
+	   				<div className="container-fluid d-flex justify-content-center align-items-center" id="loading">
+	   					<div className="row">
+	   						<div className="col-12">
+	   							<img src={loading} alt="" />
+	   						</div>
+	   					</div>
+	   				</div>	
+	                : 
+	    <div className="container-fluid pt-5" id="allCountry">
+	    	
+	    	<div className="row">
+	    		{/*search engine start*/}
 
-    		{/*display country start */}
+		    	
+		    	<form className="form-inline col-12 mx-auto">
+					<div className="input-group mb-3">
+					  	<div className="input-group-prepend">
+					    	<span className="input-group-text" id="basic-addon1">
+					  			<i className="fas fa-search" aria-hidden="true"></i>
+					    	</span>
+					  	</div>
+					  	<input 
+					  		type="text" 
+					  		className="form-control" 
+				  			placeholder="Search"
+					  		aria-label="Search" 
+					  		aria-describedby="basic-addon1"
+					  		onChange={handleChange}
+				    		value={searchTerm} 
+					  	/>
+					</div>
+				</form>
 
-    			{countryList}
-  
-			
-    		{/*display country end */}
+	    		{/*search engine end */}
 
-		</div>	
-    </div>
+	    		{/*display country start */}
+
+	    			{countryList}
+	  
+				
+	    		{/*display country end */}
+
+			</div>	
+	    </div>
+	  	}
+  	</>
   )
 }
 

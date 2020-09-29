@@ -1,6 +1,7 @@
 import React from 'react';
 import Country from './components/Country';
 import CountrySingle from './components/CountrySingle'
+import './css/Style.css'
 import {
 	BrowserRouter as Router,
 	Switch,
