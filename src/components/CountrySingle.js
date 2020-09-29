@@ -17,26 +17,26 @@ const CountrySingle = (props) => {
         .then(data => {
            		setCountry(data[0])
             	setIsLoading(false)
-        	
         })
     },[name])
     
  	return (
     <div className="container-fluid d-flex justify-content-center align-items-center" id="singlePage">
     	<div className="row">
-    		{<div className="col-12 col-md-8  mx-auto">
-            {
-                isLoading ?
-                <div className="container-fluid d-flex justify-content-center align-items-center" id="loading">
-                    <div className="row">
-                        <div className="col-12">
-                            <img src={loading} alt="" />
-                        </div>
-                    </div>
-                </div> 
-                :
-                <CountryCard country={country}  withDescription ={true}/>
-            }	
+    		<div className="col-12 col-md-8  mx-auto">
+                {
+                    isLoading 
+                    ?
+                        <div className="container-fluid d-flex justify-content-center align-items-center" id="loading">
+                            <div className="row">
+                                <div className="col-12">
+                                    <img src={loading} alt="" />
+                                </div>
+                            </div>
+                        </div> 
+                    :
+                        <CountryCard country={country}  withDescription ={true}/>
+                }	
     		</div>}
     	</div>
     </div>

@@ -10,25 +10,23 @@ import {
 
 
 function App() {
-  return (
-    <Router>
+    return (
+        <Router>
 
-    	<Switch>
+        	<Switch>
 
-    	
+            	<Route path="/countries/:name">
+            		<CountrySingle />
+            	</Route>
 
-    	<Route path="/countries/:name">
-    		<CountrySingle />
-    	</Route>
+                <Route path="/">
+                    <Country />
+                </Route>
 
-        <Route path="/">
-            <Country />
-        </Route>
-
-    	</Switch>
-    	
-    </Router>
-  )
+        	</Switch>
+        	
+        </Router>
+    )
 }
 
 export default App;
