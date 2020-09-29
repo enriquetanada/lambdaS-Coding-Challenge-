@@ -4,6 +4,8 @@ import CountryCard from './../partials/CountryCard'
 const Country = (props) => {
 	
 	const [countries, setCountries] = useState([])
+	const [searchTerm, setSearchTerm] = React.useState("");
+ 	const [searchResults, setSearchResults] = React.useState([]);
 
 	useEffect(() =>{
 		fetch("https://restcountries.eu/rest/v2/all")
@@ -11,11 +13,27 @@ const Country = (props) => {
 		.then(countries =>{setCountries(countries)})
 	},[])
 
-	let countryList = countries.map(country =>(
+	const handleChange = e =>{
+		setSearchTerm(e.target.value);
+
+	}
+
+	useEffect(()=>{
+		const filter = countries.filter(country=>
+			country.name.toLowerCase().includes(searchTerm.toLowerCase())
+			
+			)
+		setSearchResults(filter)
+
+	},[searchTerm])
+
+	let countryList = (searchTerm ? searchResults : countries).map(country =>(
    		<div className="col-12 col-md-4 col-lg-3 mx-auto mt-5" key={country.name}>
    			<CountryCard country={country} />
    		</div>
 	))
+
+
   	return (
   	
     <div className="container mt-3">
@@ -24,8 +42,14 @@ const Country = (props) => {
     		{/*search engine start*/}
 	    	<form className="form-inline col-12 mx-auto">
 			  	<i className="fas fa-search" aria-hidden="true"></i>
-			  	<input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-			    aria-label="Search"/>
+			  	<input 
+			  		className="form-control form-control-sm ml-3 w-100" 
+			  		type="text" 
+			  		placeholder="Search"
+			    	aria-label="Search"
+			    	onChange={handleChange}
+			    	value={searchTerm}
+			    />
 			</form>
     		{/*search engine end */}
 
