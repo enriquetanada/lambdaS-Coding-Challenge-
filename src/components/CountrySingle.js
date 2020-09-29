@@ -18,7 +18,7 @@ const CountrySingle = (props) => {
             	setIsLoading(false)
         	
         })
-    },[])
+    },[name])
     
  	return (
     <div className="container">
@@ -30,10 +30,8 @@ const CountrySingle = (props) => {
                     <span className="sr-only ">Loading...</span>
                 </div> 
                 :
-                <CountryCard country={country}  />
-            }
-                
-    			
+                <CountryCard country={country}  withDescription ={true}/>
+            }	
     		</div>}
     	</div>
     </div>

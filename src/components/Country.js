@@ -4,13 +4,17 @@ import CountryCard from './../partials/CountryCard'
 const Country = (props) => {
 	
 	const [countries, setCountries] = useState([])
+    const [isLoading, setIsLoading]= useState(true);
 	const [searchTerm, setSearchTerm] = React.useState("");
  	const [searchResults, setSearchResults] = React.useState([]);
 
 	useEffect(() =>{
 		fetch("https://restcountries.eu/rest/v2/all")
 		.then(res =>{return res.json()})
-		.then(countries =>{setCountries(countries)})
+		.then(countries =>{
+            setIsLoading(false)
+			setCountries(countries)
+		})
 	},[])
 
 	const handleChange = e =>{
@@ -25,11 +29,18 @@ const Country = (props) => {
 			)
 		setSearchResults(filter)
 
-	},[searchTerm])
+	},[searchTerm,countries])
 
 	let countryList = (searchTerm ? searchResults : countries).map(country =>(
    		<div className="col-12 col-md-4 col-lg-3 mx-auto mt-5" key={country.name}>
-   			<CountryCard country={country} />
+   			{
+   				isLoading ?
+   				<div className="spinner-border" role="status">
+                    <span className="sr-only ">Loading...</span>
+                </div>
+                : 
+   				<CountryCard country={country} />
+   			}
    		</div>
 	))
 
@@ -54,7 +65,10 @@ const Country = (props) => {
     		{/*search engine end */}
 
     		{/*display country start */}
-			{countryList}
+
+    			{countryList}
+  
+			
     		{/*display country end */}
 
 		</div>	
