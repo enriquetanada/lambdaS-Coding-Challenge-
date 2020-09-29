@@ -28,14 +28,13 @@ const Country = (props) => {
 			    aria-label="Search"/>
 			</form>
     		{/*search engine end */}
+
     		{/*display country start */}
 			{countryList}
     		{/*display country end */}
+
 		</div>	
     </div>
-
-
-
   )
 }
 

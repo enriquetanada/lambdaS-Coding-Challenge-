@@ -1,5 +1,6 @@
 import React from 'react';
 import Country from './components/Country';
+import CountrySingle from './components/CountrySingle'
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -13,9 +14,15 @@ function App() {
 
     	<Switch>
 
-    	<Route path="/">
-    		<Country />
+    	
+
+    	<Route path="/countries/:name">
+    		<CountrySingle />
     	</Route>
+
+        <Route path="/">
+            <Country />
+        </Route>
 
     	</Switch>
     	
